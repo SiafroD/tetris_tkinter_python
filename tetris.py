@@ -2,6 +2,16 @@ from tkinter import *
 from tetris_class import *
 from random import randint
 
+controls = {
+    's' : (0,1), #accélération de la descente
+    'd' : (1,0), #mouvement à droite
+    'q' : (-1,0) #mouvement à gauche
+    }
+
+def mouvements(event):
+    if event.char in controls:
+        snake.direction = controls[event.char]
+
 
 def animer():
     #print(bloc.corps[0])
@@ -10,8 +20,8 @@ def animer():
     for cell in bloc.corps:
         xc,yc = cell
         w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill="green", outline="")
-    
-    root.after(jeu.frame_rate,animer) 
+
+    root.after(jeu.frame_rate,animer)
 
 
 

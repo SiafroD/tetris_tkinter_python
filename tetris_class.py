@@ -26,9 +26,9 @@ class Block:
             self.corps[i] = [x,y]
 
     def mouvement(self): #fonction lié à un event, permettant à la pièce d'aller à gauche ou à droite
-        pass
-    
-     
+        
+
+
 
 class Game:
     def __init__(self,l,h,step,f_r):
@@ -36,10 +36,10 @@ class Game:
         self.hauteur = h
         self.step = step
         self.frame_rate = f_r
-        
+
         self.score = 0
         self.coo_start = [self.largeur//2,0]
-        self.plateau = [[0]*10]*22 
+        self.plateau = [[0]*10]*22
         #Si une case = 0, elle n'est pas occupée. Sinon, elle l'est. A noter qu'on parle ici des blocs posés, pas des pièces qui
         #descendent
 
