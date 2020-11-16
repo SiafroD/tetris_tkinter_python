@@ -10,7 +10,7 @@ controls = {
 
 def mouvements(event):
     if event.char in controls:
-        snake.direction = controls[event.char]
+        bloc.direction = controls[event.char]
 
 
 def animer():
