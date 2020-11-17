@@ -1,25 +1,25 @@
 /!\ Les touches peuvent être modifiées à terme.
 
-Le jeu prend place dans un plateau/espace de jeu (tableau) composé de 22 lignes et 10 colones.
+Le jeu prend place dans un plateau/espace de jeu (tableau) composé de 22 lignes et 10 colonnes.
 
 Le jeu débute avec une aire de jeu vide. Une première "pièce" (une forme géométrique piochée au hasard
 parmi une liste de formes prédéfinies) viendra apparaître en haut du plateau, et descendra doucement
 vers le bas de celui-ci.
 
-Le joueur peut déplacer la pièce latéralement (gauche : A / droite : Z) entre les côtés gauche et droite 
+Le joueur peut déplacer la pièce latéralement (gauche : Q / droite : D) entre les côtés gauche et droite 
 du plateau.
-Le joueur peut faire pivoter la pièce de 45° dans le sens des aiguilles d'une montre (P) ou inverse (O).
-Le joueur peut accélérer la descente de la pièce (Espace).
+Le joueur peut faire pivoter la pièce de 90° dans le sens des aiguilles d'une montre (P) ou inverse (O).
+Le joueur peut accélérer la descente de la pièce (S).
 
-Lorsqu'une pièce est bloquée dans sa progression vers le bas (touché le bas du tableau ou une autre pièce
-déjà tombée), elle devient solide et n'est alors plus contrôlable par le joueur : elle devient une partie
+Lorsqu'une pièce est bloquée dans sa progression vers le bas (bas du tableau ou autre pièce déjà tombée
+touché(e)), elle devient solide et n'est alors plus contrôlable par le joueur : elle devient une partie
 de l'environnement de jeu, fusionnant avec les pièces déjà tombées.
 
 Lorsqu'une ligne du tableau possède toutes ses cases occupées par des blocs des pièces tombées, la ligne se
-vide automatiquement et le score est incrémenté de 1. Tous les blocs situés au dessus viendront descendre
-d'une ligne.
+vide automatiquement et le score est incrémenté de 1. Tous les blocs déjà poséssitués au dessus viendront 
+descendre d'une ligne.
 
-Si une colone possède toutes ses cases occupées par des blocs de pièces tombées et qu'une pièce vient
+Si une colonne possède toutes ses cases occupées par des blocs de pièces tombées et qu'une pièce vient
 se poser par dessus, c'est Game Over.
 
 => L'objectif du jeu est d'empiler stratégiquement les blocs, de sorte à remplir un maximum de lignes
