@@ -19,6 +19,7 @@ L'objet Block, qui définit la vitesse de descente de la pièce active et ses d�
 L'objet Game, qui définit le plateau de jeu, ses dimensions, le score et l'échelle en pixels.
 
 
+
 EN : 
 This is a school project where we are coding a tetris with the python module tkinter
 
