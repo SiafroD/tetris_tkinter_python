@@ -3,18 +3,22 @@ from tetris_class import *
 from random import randint
 
 controls = {
-    's' : (0,1), #accélération de la descente
-    'd' : (1,0), #mouvement à droite
-    'q' : (-1,0) #mouvement à gauche
+    #'s' : (0,1), #accélération de la descente --> /!\ à initialiser
+    'd' : 1, #mouvement à droite
+    'q' : -1 #mouvement à gauche
     }
 
 def mouvements(event):
     if event.char in controls:
-        bloc.direction = controls[event.char]
+        #bloc.direction = controls[event.char]
+        bloc.mouvement(controls[event.char])
+        w.delete(ALL)
+        for cell in bloc.corps:
+            xc,yc = cell
+            w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill="green", outline="")
 
 
 def animer():
-    #print(bloc.corps[0])
     bloc.descendre()
     w.delete(ALL)
     for cell in bloc.corps:
@@ -36,6 +40,7 @@ bloc = Block([
     [(apparence[2][0]*jeu.step+jeu.coo_start[0]),(apparence[2][1]*jeu.step+jeu.coo_start[1])],
     [(apparence[3][0]*jeu.step+jeu.coo_start[0]),(apparence[3][1]*jeu.step+jeu.coo_start[1])]],jeu)
 #==================================
+root.bind("<Key>", mouvements)
 w = Canvas(root, width=jeu.largeur, height=jeu.hauteur)
 v = StringVar()
 v.set("")
