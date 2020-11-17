@@ -18,17 +18,40 @@ class Block:
         self.corps = corps
         self.game = game
 
-    def descendre(self): #fonction continue, permettant à la pièce de descendre
+    def creer_corps(self):
+        '''
+        Une fois appelée dans le programme principal, cette fonction vient initialiser ou réinitialiser l'attribut corps de la
+        class Block, à partir des coordonnées de départ de l'attribut game ainsi que d'une forme tiré au hasard dans la class
+        Shapes. 
+        /!\ Pour l'heure, cette fonction est inactive et le corps est défini directement dans le programme principal.
+        '''
+        pass
+
+    def descendre(self):
+        ''' 
+        Fonction appelée en continu dans le programme, elle ajoute au y de chaque case du corps de notre bloc le step de la partie
+        contenu dans l'attribut game, faisant ainsi continuellement descendre la pièce sur le terrain de jeu.
+        '''
         n = len(self.corps)
         for i in range(n):
             x,y = self.corps[i]
             y += self.game.step
             self.corps[i] = [x,y]
 
-    def mouvement(self): #fonction lié à un event, permettant à la pièce d'aller à gauche ou à droite
-        
+    def mouvement(self,direction): 
+        '''
+        Fonction lié à un event dans le programme principal. Lorsque la touche q ou d (prochainement s) est pressé, la fonction
+        se lance avec la valeur associé à la touche
+        Si direction=1, l'ensemble des pièces formant le bloc se décallent de 1*step en x.
+        Si direction=-1, l'ensemble des pièces formant le bloc se décallent de -1*step en x.
+        '''
 
-
+        n = len(self.corps)
+        for i in range(n):
+            x,y = self.corps[i]
+            x += direction*self.game.step
+            self.corps[i] = [x,y]
+     
 
 class Game:
     def __init__(self,l,h,step,f_r):
@@ -36,13 +59,19 @@ class Game:
         self.hauteur = h
         self.step = step
         self.frame_rate = f_r
-
+        
         self.score = 0
         self.coo_start = [self.largeur//2,0]
-        self.plateau = [[0]*10]*22
+        self.plateau = [[0]*22]*10 
         #Si une case = 0, elle n'est pas occupée. Sinon, elle l'est. A noter qu'on parle ici des blocs posés, pas des pièces qui
         #descendent
 
 
-    def décaler(): #quand une ligne est pleine, décalage d'une ligne de tous les blocs "solides"
+    def décaler():
+        '''
+        Lorsqu'une ligne de self.plateau est pleine, cette fonction vide celle-ci et décalle toute les lignes situées au-dessus
+        d'un cran en y (= +step)
+
+        /!\ à créer prochainement
+        '''
         pass
