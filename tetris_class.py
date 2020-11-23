@@ -31,12 +31,23 @@ class Block:
         ''' 
         Fonction appelée en continu dans le programme, elle ajoute au y de chaque case du corps de notre bloc le step de la partie
         contenu dans l'attribut game, faisant ainsi continuellement descendre la pièce sur le terrain de jeu.
+
+        On utilise la liste initialement vide "corps_temp" dans laquelle on place les coordonnées de chaque case de notre bloc
+        une fois le déplacement accompli. Si une case n'est pas valide (en dehors du plateau), elle n'entre pas dans corps_temp.
+        On ne modifie self.corps que si corps_temp a une longueur de 4, soit si toutes les cases, une fois le déplacement
+        accompli, ont une position valide.
         '''
         n = len(self.corps)
+        corps_temp = []
+        #print(self.corps) --> utile pour analyser les coo des cases et vérifier que la collision avec le fond fonctionne.
         for i in range(n):
             x,y = self.corps[i]
             y += self.game.step
-            self.corps[i] = [x,y]
+            if y<=self.game.hauteur-self.game.step:
+                corps_temp.append([x,y])
+
+        if len(corps_temp)==4:
+            self.corps = corps_temp
 
     def mouvement(self,direction): 
         '''
@@ -44,13 +55,23 @@ class Block:
         se lance avec la valeur associé à la touche
         Si direction=1, l'ensemble des pièces formant le bloc se décallent de 1*step en x.
         Si direction=-1, l'ensemble des pièces formant le bloc se décallent de -1*step en x.
+
+        On utilise la liste initialement vide "corps_temp" dans laquelle on place les coordonnées de chaque case de notre bloc
+        une fois le déplacement accompli. Si une case n'est pas valide (en dehors du plateau), elle n'entre pas dans corps_temp.
+        On ne modifie self.corps que si corps_temp a une longueur de 4, soit si toutes les cases, une fois le déplacement
+        accompli, ont une position valide.
         '''
 
         n = len(self.corps)
+        corps_temp = []
         for i in range(n):
             x,y = self.corps[i]
             x += direction*self.game.step
-            self.corps[i] = [x,y]
+            if 0<=x<=self.game.largeur-self.game.step:
+                corps_temp.append([x,y])
+
+        if len(corps_temp)==4:
+            self.corps = corps_temp
      
 
 class Game:
