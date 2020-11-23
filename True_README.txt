@@ -66,3 +66,30 @@ alors nommé direction. Cependant, la manière dont la fonction était exécuté
 latéraux ne se faisaient qu'au moment des déplacements vers le bas. Ainsi, nous avons modifié la fonction
 pour l'exécuter directement depuis tetris.py et nous faisons une actualisation du canvas parallèle à celle
 de la boucle principale et de la fonction animer.
+
+==============================================================================================================
+
+Version 3 (23/11/20):
+
+--> Ajouts :
+-Collisions avec les bordures et le fond du terrain (gestions dans les méthodes mouvement et descendre de la
+class Block)
+
+
+--> Réflexions :
+-Poursuite des réflexions sur l'idée de rotation (matrices, etc...).
+-En lien avec la difficulté rencontrée, nous prévoyons, si cela est possible, de modifier le Game.step de 
+sorte à ce que celui-ci s'adapte à la taille de l'écran de l'utilisateur.
+
+
+--> Difficultés :
+-Légère difficulté dans la verification de notre système de collision avec le fond du terrain. L'écran de
+l'ordi région étant trop petit, la hauteur du terrain dépasse sa taille, et nous ne voyons pas la pièce sortir.
+La difficulté a rapidement été surmontée, grâce u l'utilisation d'un print des coordonnées du corps qui nous
+ont permis de voir l'arrêt effectif de la pièce en bas du terrain. 
+
+==============================================================================================================
+
+Version 4 (../11/20):
+
+[...]
