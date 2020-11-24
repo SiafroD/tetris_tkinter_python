@@ -90,6 +90,21 @@ ont permis de voir l'arrêt effectif de la pièce en bas du terrain.
 
 ==============================================================================================================
 
-Version 4 (../11/20):
+Version 4 (24/11/20):
+
+--> Ajouts :
+-Aucuns
+
+
+--> Réflexions :
+-Ajout d'un fichier texte décrivant les "Shapes" des rotations de chaque formes.
+
+
+--> Difficultés :
+-Légères difficultés sur la mise en place de ce schéma, et la visualiation des rotations, mais sans plus.
+
+==============================================================================================================
+
+Version 5 (../11/20):
 
 [...]
