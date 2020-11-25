@@ -1,6 +1,6 @@
-Position abstraites !! Si les coordonnées d'une case sont (0;1), cela signifie que cette case se trouve à 
+Positions abstraites !! Si les coordonnées d'une case sont (0;1), cela signifie que cette case se trouve à
 0*game.step du x de la "case par défaut" et à 1*game.step de son y. La case par défaut n'est pas encore
-incluse dans le programme, mais le sera bientôt. Il s'agit simplement de la case quiinitiallement est la 
+incluse dans le programme, mais le sera bientôt. Il s'agit simplement de la case qui initialement est la
 zone d'apparition d'un bloc, et qui se déplace de 1*game.step en y lors de chaque descente.
 
 
@@ -12,14 +12,14 @@ zone d'apparition d'un bloc, et qui se déplace de 1*game.step en y lors de chaq
 [(0, 1), (0, 0), (1, 1), (1, 0)]		# 270°
 
 -Ligne :
-           
+
 [(0, 0), (0, 1), (0, 2), (0, 3)]
 [(3, 0), (2, 0), (1, 0), (0, 0)]
 [(0, 3), (0, 2), (0, 1), (0, 0)]
 [(0, 0), (1, 0), (2, 0), (3, 0)]
 
 -J :
-            
+
 [(1, 0), (1, 1), (1, 2), (0, 2)]
 [(2, 1), (1, 1), (0, 1), (0, 0)]
 [(0, 2), (0, 1), (0, 0), (1, 0)]
@@ -27,21 +27,21 @@ zone d'apparition d'un bloc, et qui se déplace de 1*game.step en y lors de chaq
 
 
 -L :
-            
+
 [(0, 0), (0, 1), (0, 2), (1, 2)]
 [(2, 0), (1, 0), (0, 0), (0, 1)]
 [(1, 2), (1, 1), (1, 0), (0, 0)]
 [(0, 1), (1, 1), (2, 1), (2, 0)]
 
 -S :
-            
+
 [(0, 1), (1, 1), (1, 0), (2, 0)]
 [(0, 0), (0, 1), (1, 1), (1, 2)]
 [(2, 0), (1, 0), (1, 2), (0, 1)]
 [(1, 2), (1, 1), (0, 1), (0, 0)]
 
 -Z :
-            
+
 [(0, 0), (1, 0), (1, 1), (2, 1)]
 [(1, 0), (1, 1), (0, 1), (0, 2)]
 [(2, 1), (1, 1), (1, 0), (0, 0)]
