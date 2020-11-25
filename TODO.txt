@@ -1,7 +1,6 @@
 On a classé les buts à atteindre par ordre de priorité (du plus urgent au moins urgent)
 A faire :
 
- - Accélération de la descente
  - Empilement des tétrominos
  - Génération d'un nouveau tétromino quand le tétromino précédent a atteint le fond de l'aire de jeu. 
  - Disparition d'une ligne quand elle est pleine
