@@ -14,17 +14,25 @@ class Shapes:
 
 
 class Block:
-    def __init__(self,corps,game):
-        self.corps = corps
-        self.game = game
+    def __init__(self):
+        self.corps = []
+        self.game = Game()
+        self.apparences = Shapes()
+        self.cd = 0
 
-    def creer_corps(self):
+    def remplir_corps(self):
         '''
         Une fois appelée dans le programme principal, cette fonction vient initialiser ou réinitialiser l'attribut corps de la
         class Block, à partir des coordonnées de départ de l'attribut game ainsi que d'une forme tiré au hasard dans la class
         Shapes.
-        /!\ Pour l'heure, cette fonction est inactive et le corps est défini directement dans le programme principal.
         '''
+        apparence = self.apparences.formes[randint(0,len(self.apparences.formes)-1)]
+        self.cd = self.game.coo_start  #pour rotation
+        self.corps = [
+            [(apparence[0][0]*self.game.step+self.cd[0]),(apparence[0][1]*self.game.step+self.cd[1])],
+            [(apparence[1][0]*self.game.step+self.cd[0]),(apparence[1][1]*self.game.step+self.cd[1])],
+            [(apparence[2][0]*self.game.step+self.cd[0]),(apparence[2][1]*self.game.step+self.cd[1])],
+            [(apparence[3][0]*self.game.step+self.cd[0]),(apparence[3][1]*self.game.step+self.cd[1])]]
         pass
 
     def descendre(self):

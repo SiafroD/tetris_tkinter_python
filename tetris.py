@@ -45,12 +45,7 @@ root = Tk()
 root.title("Tetris")
 #==================================
 jeu = Game(400,880,40,800)
-apparence = Shapes().formes[randint(0,len(Shapes().formes)-1)]
-bloc = Block([
-    [(apparence[0][0]*jeu.step+jeu.coo_start[0]),(apparence[0][1]*jeu.step+jeu.coo_start[1])],
-    [(apparence[1][0]*jeu.step+jeu.coo_start[0]),(apparence[1][1]*jeu.step+jeu.coo_start[1])],
-    [(apparence[2][0]*jeu.step+jeu.coo_start[0]),(apparence[2][1]*jeu.step+jeu.coo_start[1])],
-    [(apparence[3][0]*jeu.step+jeu.coo_start[0]),(apparence[3][1]*jeu.step+jeu.coo_start[1])]],jeu)
+block = Block.remplir_corps()
 #==================================
 root.bind("<KeyRelease>", ralentir)
 root.bind("<Key>", mouvements)
