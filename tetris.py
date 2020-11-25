@@ -19,11 +19,13 @@ def mouvements(event):
 
 def accélérer(event):
     if event.char == "s":
-        jeu.frame_rate = jeu.frame_rate * 2
+        if jeu.frame_rate >= 400:
+            jeu.frame_rate = jeu.frame_rate // 2
 
 def ralentir(event):
     if event.char == "s":
-        jeu.frame_rate = jeu.frame_rate * 2
+        if jeu.frame_rate <= 400:
+            jeu.frame_rate = jeu.frame_rate * 2
 
 def animer():
     bloc.descendre()
@@ -39,7 +41,7 @@ def animer():
 root = Tk()
 root.title("Tetris")
 #==================================
-jeu = Game(400,880,40,750)
+jeu = Game(400,880,40,800)
 apparence = Shapes().formes[randint(0,len(Shapes().formes)-1)]
 bloc = Block([
     [(apparence[0][0]*jeu.step+jeu.coo_start[0]),(apparence[0][1]*jeu.step+jeu.coo_start[1])],
@@ -49,10 +51,10 @@ bloc = Block([
 #==================================
 root.bind("<Key>", mouvements)
 root.bind("<KeyPress>", accélérer)
-root.bind("<KeyReleas>", ralentir)
+root.bind("<KeyRelease>", ralentir)
 w = Canvas(root, width=jeu.largeur, height=jeu.hauteur)
 v = StringVar()
-v.set("")
+v.set(f"{jeu.frame_rate}")
 w.pack()
 Label(root, textvariable=v).pack()
 animer()

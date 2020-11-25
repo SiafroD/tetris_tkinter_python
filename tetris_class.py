@@ -22,13 +22,13 @@ class Block:
         '''
         Une fois appelée dans le programme principal, cette fonction vient initialiser ou réinitialiser l'attribut corps de la
         class Block, à partir des coordonnées de départ de l'attribut game ainsi que d'une forme tiré au hasard dans la class
-        Shapes. 
+        Shapes.
         /!\ Pour l'heure, cette fonction est inactive et le corps est défini directement dans le programme principal.
         '''
         pass
 
     def descendre(self):
-        ''' 
+        '''
         Fonction appelée en continu dans le programme, elle ajoute au y de chaque case du corps de notre bloc le step de la partie
         contenu dans l'attribut game, faisant ainsi continuellement descendre la pièce sur le terrain de jeu.
 
@@ -49,7 +49,7 @@ class Block:
         if len(corps_temp)==4:
             self.corps = corps_temp
 
-    def mouvement(self,direction): 
+    def mouvement(self,direction):
         '''
         Fonction lié à un event dans le programme principal. Lorsque la touche q ou d (prochainement s) est pressé, la fonction
         se lance avec la valeur associé à la touche
@@ -72,7 +72,7 @@ class Block:
 
         if len(corps_temp)==4:
             self.corps = corps_temp
-     
+
 
 class Game:
     def __init__(self,l,h,step,f_r):
@@ -80,10 +80,10 @@ class Game:
         self.hauteur = h
         self.step = step
         self.frame_rate = f_r
-        
+
         self.score = 0
         self.coo_start = [self.largeur//2,0]
-        self.plateau = [[0]*22]*10 
+        self.plateau = [[0]*22]*10
         #Si une case = 0, elle n'est pas occupée. Sinon, elle l'est. A noter qu'on parle ici des blocs posés, pas des pièces qui
         #descendent
 
