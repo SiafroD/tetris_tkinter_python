@@ -18,14 +18,10 @@ def mouvements(event):
             w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill="green", outline="")
 
 def accélérer(event):
-    if event.char == "s":
-        if jeu.frame_rate >= 400:
-            jeu.frame_rate = jeu.frame_rate // 2
+    jeu.modif_vitesse(0.5)
 
 def ralentir(event):
-    if event.char == "s":
-        if jeu.frame_rate <= 400:
-            jeu.frame_rate = jeu.frame_rate * 2
+    jeu.modif_vitesse(2)
 
 def animer():
     bloc.descendre()

@@ -96,3 +96,7 @@ class Game:
         /!\ à créer prochainement
         '''
         pass
+
+    def modif_vitesse(self,val):
+        if 100<self.frame_rate<1600:
+            self.frame_rate = int(self.frame_rate*val)
