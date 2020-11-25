@@ -1,0 +1,10 @@
+On a classé les buts à atteindre par ordre de priorité (du plus urgent au moins urgent)
+A faire :
+
+ - Empilement des tétrominos
+ - Génération d'un nouveau tétromino quand le tétromino précédent a atteint le fond de l'aire de jeu. 
+ - Disparition d'une ligne quand elle est pleine
+ - Rotation d'un bloc
+ - Fin de jeu quand une colonne est pleine
+ - Ajout d'un système de score
+ - Ajout de musiques ?
