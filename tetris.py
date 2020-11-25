@@ -17,6 +17,13 @@ def mouvements(event):
             xc,yc = cell
             w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill="green", outline="")
 
+def accélérer(event):
+    if event.char == "s":
+        jeu.frame_rate = jeu.frame_rate * 2
+
+def ralentir(event):
+    if event.char == "s":
+        jeu.frame_rate = jeu.frame_rate * 2
 
 def animer():
     bloc.descendre()
@@ -41,6 +48,8 @@ bloc = Block([
     [(apparence[3][0]*jeu.step+jeu.coo_start[0]),(apparence[3][1]*jeu.step+jeu.coo_start[1])]],jeu)
 #==================================
 root.bind("<Key>", mouvements)
+root.bind("<KeyPress>", accélérer)
+root.bind("<KeyReleas>", ralentir)
 w = Canvas(root, width=jeu.largeur, height=jeu.hauteur)
 v = StringVar()
 v.set("")
