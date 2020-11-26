@@ -90,7 +90,7 @@ ont permis de voir l'arrêt effectif de la pièce en bas du terrain.
 
 ==============================================================================================================
 
-Version 4 (24/11/20):
+Version 4 (25/11/20):
 
 --> Ajouts :
 -Aucuns
@@ -105,6 +105,42 @@ Version 4 (24/11/20):
 
 ==============================================================================================================
 
-Version 5 (../11/20):
+Version 5 (26/11/20):
+
+--> Ajouts :
+-Ajout d'une TODO_list (TODO.txt)
+-Système de collision avec les pièces déjà tombées, que ce soit latéralement ou dans la descente.
+-Fonction permettant le remplissage du plateau. Lorsqu'une pièce se bloque, ses positions dans le tableaux
+servent à changer les 0 du Game().plateau en 1.
+-Système d'accélération de la descente de la pièce.
+-Lorsque la pièce que l'on contrôle finit par se bloquer, génération d'une nouvelle pièce.
+-Couleurs associées à chaque blocs.
+-Changement de la couleur de fond.
+-Modification de l'utilisation de tkinter. Désormais, on repeint avec la couleur du fond les cases quittées par
+la pièce lors de ses mouvements, de sorte à ne pas faire de w.delete(ALL) et ainsi tout détruire, forçant donc
+la disparition des pièces déjà tombées, notamment.
+
+
+--> Réflexions :
+-Préparation des quatre systèmes restant : 
+   -Suppression d'une ligne pleine
+   -Rotation
+   -Game Over lorsqu'une colonne est pleine
+   -Score
+
+
+--> Difficultés :
+-Pour tout ce qui concerne les collisions, quelques petites erreurs banales dans la formulation des demandes
+etc... qui ont entraîné quelques erreurs plutôt bêtes, mais rapidement corrigées.
+-De même pour le système des couleurs, avec quelques petits quiproquos entre noms de class et nom de l'objet
+représentant cette classe (ici, "Block" et "block").
+-Grandes réflexions sur la génération d'une nouvelle pièce. Deux solutions ont été envisagées, concernant la
+méthodes reset_block(), à savoir de la placer dans la class Block ou dans la class Game. Finalement, nous
+l'avons placé dans la class Block pour une gestion plus localisée de la chose et éviter trop d'échanges entre
+les classes, mais l'autre solution reste évidemment envisageable.
+
+==============================================================================================================
+
+Version 6 (../../20):
 
 [...]
