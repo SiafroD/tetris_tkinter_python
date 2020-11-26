@@ -1,24 +1,26 @@
 from tkinter import *
-from tetris_class import *
+from tetris_class import Game, Shapes, Block
 from random import randint
 
 controls = {
-    's' : (0,1), #accélération de la descente --> /!\ à initialiser
+    's' : (0,1), #accélération de la descente. Valeur associée inutile
     'd' : 1, #mouvement à droite
     'q' : -1 #mouvement à gauche
     }
 
 def mouvements(event):
     if event.char in controls:
-        #bloc.direction = controls[event.char]
+        #block.direction = controls[event.char]
         if event.char == "s":
             accelerer(event)
         else:
-            bloc.mouvement(controls[event.char])
-            w.delete(ALL)
-            for cell in bloc.corps:
+            block.mouvement(controls[event.char])
+            for cell in block.corps_precedent:
                 xc,yc = cell
-                w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill="green", outline="")
+                w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill="gray2", outline="")
+            for cell in block.corps:
+                xc,yc = cell
+                w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill=f"{block.couleur}", outline="")
 
 def accelerer(event):
     if event.char == "s":
@@ -31,25 +33,30 @@ def ralentir(event):
             jeu.frame_rate = 800
 
 def animer():
-    bloc.descendre()
-    w.delete(ALL)
-    for cell in bloc.corps:
-        xc,yc = cell
-        w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill="green", outline="")
-
+    ver = block.descendre()
+    if ver:
+        for cell in block.corps_precedent:
+            xc,yc = cell
+            w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill="gray2", outline="")
+        for cell in block.corps:
+            xc,yc = cell
+            w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill=f"{block.couleur}", outline="")
+    else:
+        jeu.remplir_plateau(block.corps)
+        block.reset_block()
     root.after(jeu.frame_rate,animer)
-
 
 
 root = Tk()
 root.title("Tetris")
 #==================================
-jeu = Game(400,880,40,800)
-block = Block.remplir_corps()
+jeu = Game(200,440,20,800)
+block = Block(jeu)
 #==================================
 root.bind("<KeyRelease>", ralentir)
 root.bind("<Key>", mouvements)
 w = Canvas(root, width=jeu.largeur, height=jeu.hauteur)
+w.config(bg="gray2")
 v = StringVar()
 v.set(f"{jeu.frame_rate}")
 w.pack()
