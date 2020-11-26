@@ -10,30 +10,52 @@ class Shapes:
             [(0, 1), (1, 1), (1, 0), (2, 0)],     # S
             [(0, 0), (1, 0), (1, 1), (2, 1)],     # Z
             [(1, 0), (0, 1), (1, 1), (2, 1)])     # T inversé
-
+        self.couleurs = [
+            "red",          #Carre
+            "cyan",         #Ligne
+            "purple4",      #J
+            "blue2",        #L
+            "dark orange",  #S
+            "gold",         #Z
+            "green2"]       #T inversé
 
 
 class Block:
-    def __init__(self):
-        self.corps = []
-        self.game = Game()
+    def __init__(self, game):
+        self.game = game #rajouter les paramètres de Game
         self.apparences = Shapes()
         self.cd = 0
-
-    def remplir_corps(self):
-        '''
-        Une fois appelée dans le programme principal, cette fonction vient initialiser ou réinitialiser l'attribut corps de la
-        class Block, à partir des coordonnées de départ de l'attribut game ainsi que d'une forme tiré au hasard dans la class
-        Shapes.
-        '''
-        apparence = self.apparences.formes[randint(0,len(self.apparences.formes)-1)]
-        self.cd = self.game.coo_start  #pour rotation
+        gen_rand = randint(0,len(self.apparences.formes)-1)
+        apparence = self.apparences.formes[gen_rand]
+        couleur = self.apparences.couleurs[gen_rand]
+        self.cd = self.game.coo_start
         self.corps = [
             [(apparence[0][0]*self.game.step+self.cd[0]),(apparence[0][1]*self.game.step+self.cd[1])],
             [(apparence[1][0]*self.game.step+self.cd[0]),(apparence[1][1]*self.game.step+self.cd[1])],
             [(apparence[2][0]*self.game.step+self.cd[0]),(apparence[2][1]*self.game.step+self.cd[1])],
             [(apparence[3][0]*self.game.step+self.cd[0]),(apparence[3][1]*self.game.step+self.cd[1])]]
-        pass
+        self.couleur = couleur
+        self.corps_precedent = []
+
+    def reset_block(self):
+        '''
+        Quand un bloc finit bloqué dans sa descente, il devient partie du plateau/devient solide (/!\ à initialiser). Un nouveau
+        bloc se génère donc, avec cette méthode reset_block.
+        '''
+        gen_rand = randint(0,len(self.apparences.formes)-1)
+        apparence = self.apparences.formes[gen_rand]
+        couleur = self.apparences.couleurs[gen_rand]
+
+        self.cd = self.game.coo_start
+
+        self.corps = [
+            [(apparence[0][0]*self.game.step+self.cd[0]),(apparence[0][1]*self.game.step+self.cd[1])],
+            [(apparence[1][0]*self.game.step+self.cd[0]),(apparence[1][1]*self.game.step+self.cd[1])],
+            [(apparence[2][0]*self.game.step+self.cd[0]),(apparence[2][1]*self.game.step+self.cd[1])],
+            [(apparence[3][0]*self.game.step+self.cd[0]),(apparence[3][1]*self.game.step+self.cd[1])]]
+        self.couleur = couleur
+        self.corps_precedent = []
+        
 
     def descendre(self):
         '''
@@ -45,17 +67,26 @@ class Block:
         On ne modifie self.corps que si corps_temp a une longueur de 4, soit si toutes les cases, une fois le déplacement
         accompli, ont une position valide.
         '''
+
+        self.corps_precedent = self.corps
         n = len(self.corps)
+        verif = True
         corps_temp = []
         #print(self.corps) --> utile pour analyser les coo des cases et vérifier que la collision avec le fond fonctionne.
         for i in range(n):
             x,y = self.corps[i]
             y += self.game.step
+  
             if y<=self.game.hauteur-self.game.step:
-                corps_temp.append([x,y])
-
+                if self.game.plateau[x//self.game.step][y//self.game.step] == 0:
+                    corps_temp.append([x,y])
+            
         if len(corps_temp)==4:
             self.corps = corps_temp
+
+        else:
+            verif = False
+        return verif
 
     def mouvement(self,direction):
         '''
@@ -70,13 +101,16 @@ class Block:
         accompli, ont une position valide.
         '''
 
+        self.corps_precedent = self.corps
         n = len(self.corps)
         corps_temp = []
         for i in range(n):
             x,y = self.corps[i]
             x += direction*self.game.step
+
             if 0<=x<=self.game.largeur-self.game.step:
-                corps_temp.append([x,y])
+                if self.game.plateau[x//self.game.step][y//self.game.step] == 0:
+                    corps_temp.append([x,y])
 
         if len(corps_temp)==4:
             self.corps = corps_temp
@@ -91,9 +125,27 @@ class Game:
 
         self.score = 0
         self.coo_start = [self.largeur//2,0]
-        self.plateau = [[0]*22]*10
+        #self.plateau = [[0]*22]*10
+        self.plateau = [
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
         #Si une case = 0, elle n'est pas occupée. Sinon, elle l'est. A noter qu'on parle ici des blocs posés, pas des pièces qui
         #descendent
+
+
+    def remplir_plateau(self,block):
+        for cell in block:
+            xc,yc = cell
+            self.plateau[xc//self.step][yc//self.step] = 1
 
 
     def décaler():
