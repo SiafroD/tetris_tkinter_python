@@ -141,6 +141,53 @@ les classes, mais l'autre solution reste évidemment envisageable.
 
 ==============================================================================================================
 
-Version 6 (../../20):
+Version 6 / Version 1.0 (27/11/20):
+
+--> Ajouts :
+-Système de rotation via la fonction mouvements déjà présente dans tetris.py ainsi que la fonction rotation
+ajoutée dans tetris_class.py
+-Système de destruction des lignes pleines, ajouté via la fonction décaler dans la class Game().
+-Système de score, simplement implémenté par un v.set(). Lorsqu'un bloc quelconque est posé, le score est
+incrémenté de 10, et lorsqu'une ligne est détruite, le score est incrémenté de 100.
+-Lorsque la case de coordonnées x quelconque et y=0 est occupée par une cell d'un bloc, c'est Game Over.
+-Affichage graphique du Game Over sur le canvas de tkinter.
+-Modification du fichier tetris_fonctionnement.txt. Les parties sur le score ont été mise à jour.
+-Modification du fichier TODO.txt. Les idées ci-dessous ont été ajouté.
+
+
+--> Réflexions :
+-Idées d'ajouts supplémentaires pour embellir le projet qui, dans la technique, est d'ores et déjà terminé.
+   -Sound design.
+   -Musique.
+   -Passage de toutes les procédures pour l'affichage graphique du "Game Over" dans la class Game(), avec
+    une méthode créée pour l'occasion.
+   -Sauvegarde des scores dans une base de donnée (.json, sql, etc...)
+   -Ajout d'une identification via un pseudo et mot de passe, eux aussi stockés dans une base de donnée
+   -Système de difficulté (se basant notamment sur une augmentation de la vitesse de chute des pièces)
+
+
+--> Difficultés :
+-La rotation a posé plusieurs problèmes, mais ceux-ci étant comme bien souvent des erreurs plutôt bêtes. 
+Avec le système de rotation, nous avons enfin ajouté un intérêt à l'attribut cd (=coordonnées par défaut)
+de la class Block(). En effet, celle-ci fait office de pivot pour la rotation, puisque c'est à partir de
+celle-ci que sont déterminées les nouvelles coordonnées de chaque forme, par l'utilisation des coordonnées
+"abstraites" contenues dans Shapes().formes. Cependant, il faut que cd suive les modifications que subit le
+bloc lors de sa descente ou de ses déplacements latéraux. Un bug que nous avions était que les coordonnées
+x de cd ne faisaient qu'augmenter constamment. Ceci était lié à une simple erreur : nous n'utilisions pas
+la variable muette direction de la méthode mouvement (dans Block()) pour affecter les x de cd. Ainsi, dès
+qu'un mouvement latéral était accompli, que ce soit à gauche ou à droite, les x de cd se déplaçait de
+20 (1*Game().step) vers la droite.
+
+-Légères difficultés dans la mise en place de la détection du Game Over. En effet, nous pensions jusque là
+qu'il fallait voir si une collonne entière était pleine, alors qu'il suffit d'observer la case de coordonnées
+x quelconque de y=0 pour enclencher ou non un Game Over.
+
+-La mise en place de l'affichage du Game Over de manière graphique était simplement horrible. Le résultat
+est maintenant plus que satisfaisant, mais il faudra optimiser la chose dans les futures versions, c'est 
+certain.
+
+==============================================================================================================
+
+Version 7 / Version 1.1 (../../20) :
 
 [...]
