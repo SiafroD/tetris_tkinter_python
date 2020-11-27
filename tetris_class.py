@@ -1,15 +1,44 @@
 from random import randint
 
 class Shapes:
-    def __init__(self):
+    def __init__(self): #Un déplacement des formes dans un fichier externe est à terme envisagé (.json par exemple, ou équivalent)
         self.formes = (
-            [(0, 0), (1, 0), (0, 1), (1, 1)],     # Carre
-            [(0, 0), (0, 1), (0, 2), (0, 3)],     # Ligne
-            [(1, 0), (1, 1), (1, 2), (0, 2)],     # J
-            [(0, 0), (0, 1), (0, 2), (1, 2)],     # L
-            [(0, 1), (1, 1), (1, 0), (2, 0)],     # S
-            [(0, 0), (1, 0), (1, 1), (2, 1)],     # Z
-            [(1, 0), (0, 1), (1, 1), (2, 1)])     # T inversé
+            [[(0, 0), (1, 0), (0, 1), (1, 1)],     # Carre
+            [(1, 0), (1, 1), (0, 0), (0, 1)],	
+            [(1, 1), (0, 1), (1, 0), (0, 0)],	
+            [(0, 1), (0, 0), (1, 1), (1, 0)]],	
+
+            [[(0, 0), (0, 1), (0, 2), (0, 3)],     # Ligne
+            [(3, 0), (2, 0), (1, 0), (0, 0)],
+            [(0, 3), (0, 2), (0, 1), (0, 0)],
+            [(0, 0), (1, 0), (2, 0), (3, 0)]],
+
+            [[(1, 0), (1, 1), (1, 2), (0, 2)],     # J
+            [(2, 1), (1, 1), (0, 1), (0, 0)],
+            [(0, 2), (0, 1), (0, 0), (1, 0)],
+            [(0, 0), (1, 0), (2, 0), (2, 1)]],
+
+            [[(0, 0), (0, 1), (0, 2), (1, 2)],     # L
+            [(2, 0), (1, 0), (0, 0), (0, 1)],
+            [(1, 2), (1, 1), (1, 0), (0, 0)],
+            [(0, 1), (1, 1), (2, 1), (2, 0)]],
+
+            [[(0, 1), (1, 1), (1, 0), (2, 0)],     # S
+            [(0, 0), (0, 1), (1, 1), (1, 2)],
+            [(2, 0), (1, 0), (1, 1), (0, 1)],
+            [(1, 2), (1, 1), (0, 1), (0, 0)]],
+
+            [[(0, 0), (1, 0), (1, 1), (2, 1)],     # Z
+            [(1, 0), (1, 1), (0, 1), (0, 2)],
+            [(2, 1), (1, 1), (1, 0), (0, 0)],
+            [(0, 2), (0, 1), (1, 1), (1, 0)]],
+
+            [[(1, 0), (0, 1), (1, 1), (2, 1)],     # T inversé
+            [(1, 1), (0, 0), (0, 1), (0, 2)],
+            [(1, 1), (2, 0), (1, 0), (0, 0)],
+            [(0, 1), (1, 2), (1, 1), (1, 0)]])
+
+
         self.couleurs = [
             "red",          #Carre
             "cyan",         #Ligne
@@ -22,20 +51,24 @@ class Shapes:
 
 class Block:
     def __init__(self, game):
-        self.game = game #rajouter les paramètres de Game
+        self.game = game #rajoute les paramètres de Game
         self.apparences = Shapes()
-        self.cd = 0
         gen_rand = randint(0,len(self.apparences.formes)-1)
         apparence = self.apparences.formes[gen_rand]
         couleur = self.apparences.couleurs[gen_rand]
+
+        self.apparence = apparence
+        self.id_f = 0
+
         self.cd = self.game.coo_start
         self.corps = [
-            [(apparence[0][0]*self.game.step+self.cd[0]),(apparence[0][1]*self.game.step+self.cd[1])],
-            [(apparence[1][0]*self.game.step+self.cd[0]),(apparence[1][1]*self.game.step+self.cd[1])],
-            [(apparence[2][0]*self.game.step+self.cd[0]),(apparence[2][1]*self.game.step+self.cd[1])],
-            [(apparence[3][0]*self.game.step+self.cd[0]),(apparence[3][1]*self.game.step+self.cd[1])]]
+            [(self.apparence[self.id_f][0][0]*self.game.step+self.cd[0]),(self.apparence[self.id_f][0][1]*self.game.step+self.cd[1])],
+            [(self.apparence[self.id_f][1][0]*self.game.step+self.cd[0]),(self.apparence[self.id_f][1][1]*self.game.step+self.cd[1])],
+            [(self.apparence[self.id_f][2][0]*self.game.step+self.cd[0]),(self.apparence[self.id_f][2][1]*self.game.step+self.cd[1])],
+            [(self.apparence[self.id_f][3][0]*self.game.step+self.cd[0]),(self.apparence[self.id_f][3][1]*self.game.step+self.cd[1])]]
         self.couleur = couleur
         self.corps_precedent = []
+
 
     def reset_block(self):
         '''
@@ -45,14 +78,16 @@ class Block:
         gen_rand = randint(0,len(self.apparences.formes)-1)
         apparence = self.apparences.formes[gen_rand]
         couleur = self.apparences.couleurs[gen_rand]
+        self.apparence = apparence
+        self.id_f = 0
 
         self.cd = self.game.coo_start
 
         self.corps = [
-            [(apparence[0][0]*self.game.step+self.cd[0]),(apparence[0][1]*self.game.step+self.cd[1])],
-            [(apparence[1][0]*self.game.step+self.cd[0]),(apparence[1][1]*self.game.step+self.cd[1])],
-            [(apparence[2][0]*self.game.step+self.cd[0]),(apparence[2][1]*self.game.step+self.cd[1])],
-            [(apparence[3][0]*self.game.step+self.cd[0]),(apparence[3][1]*self.game.step+self.cd[1])]]
+            [(self.apparence[self.id_f][0][0]*self.game.step+self.cd[0]),(self.apparence[self.id_f][0][1]*self.game.step+self.cd[1])],
+            [(self.apparence[self.id_f][1][0]*self.game.step+self.cd[0]),(self.apparence[self.id_f][1][1]*self.game.step+self.cd[1])],
+            [(self.apparence[self.id_f][2][0]*self.game.step+self.cd[0]),(self.apparence[self.id_f][2][1]*self.game.step+self.cd[1])],
+            [(self.apparence[self.id_f][3][0]*self.game.step+self.cd[0]),(self.apparence[self.id_f][3][1]*self.game.step+self.cd[1])]]
         self.couleur = couleur
         self.corps_precedent = []
         
@@ -72,7 +107,6 @@ class Block:
         n = len(self.corps)
         verif = True
         corps_temp = []
-        #print(self.corps) --> utile pour analyser les coo des cases et vérifier que la collision avec le fond fonctionne.
         for i in range(n):
             x,y = self.corps[i]
             y += self.game.step
@@ -83,6 +117,9 @@ class Block:
             
         if len(corps_temp)==4:
             self.corps = corps_temp
+            x,y = self.cd
+            y+=self.game.step
+            self.cd = [x,y]
 
         else:
             verif = False
@@ -90,7 +127,7 @@ class Block:
 
     def mouvement(self,direction):
         '''
-        Fonction lié à un event dans le programme principal. Lorsque la touche q ou d (prochainement s) est pressé, la fonction
+        Fonction lié à un event dans le programme principal. Lorsque la touche q ou d est pressé, la fonction
         se lance avec la valeur associé à la touche
         Si direction=1, l'ensemble des pièces formant le bloc se décallent de 1*step en x.
         Si direction=-1, l'ensemble des pièces formant le bloc se décallent de -1*step en x.
@@ -114,6 +151,59 @@ class Block:
 
         if len(corps_temp)==4:
             self.corps = corps_temp
+            x,y = self.cd
+            x += direction*self.game.step
+            self.cd = [x,y]
+
+        
+    def rotation(self,angle):
+        '''
+        Fonction lié à un event dans le programme principal. Lorsque la touche o ou p est pressée, la fonction se lance
+        avec la valeur associée à la touche (1 pour P, -1 pour O)
+
+        Si angle=1, l'ensemble des pièces subira une rotation de 90° dans le sens des aiguilles d'une montre. Cela se traduira
+        par un changement d'apparence de la pièce, parmi les apparences contenues dans Block().apparence, en prenant la forme
+        "d'indice" suivant.
+        Si angle=-1, même concept, mais ce sera une rotation de 90° dans le sens inverse des aiguilles d'une montre, et la
+        prise de la forme "d'indice" précédent
+
+        Dans la même idée que pour les déplacements latéraux, nous utilisons un corps_temp pour ne pas modifier directement
+        self.corps.
+        '''
+
+        self.corps_precedent = self.corps
+        n = len(self.corps)
+        corps_temp = []
+        corps_temp2 = []
+        id_temp = self.id_f + angle
+
+        if id_temp > 3:
+            id_temp = 0
+        elif id_temp < 0:
+            id_temp = 3
+
+        corps_temp = [
+        [(self.apparence[id_temp][0][0]*self.game.step+self.cd[0]),(self.apparence[id_temp][0][1]*self.game.step+self.cd[1])],
+        [(self.apparence[id_temp][1][0]*self.game.step+self.cd[0]),(self.apparence[id_temp][1][1]*self.game.step+self.cd[1])],
+        [(self.apparence[id_temp][2][0]*self.game.step+self.cd[0]),(self.apparence[id_temp][2][1]*self.game.step+self.cd[1])],
+        [(self.apparence[id_temp][3][0]*self.game.step+self.cd[0]),(self.apparence[id_temp][3][1]*self.game.step+self.cd[1])]]
+
+        for cell in corps_temp:
+            verif = 0
+            xc,yc = cell
+
+            if 0<=xc<=self.game.largeur-self.game.step:
+                if 0<=yc<=self.game.hauteur-self.game.step:
+                    if self.game.plateau[xc//self.game.step][yc//self.game.step] == 0:
+                        verif += 1
+
+            if verif==1:
+                corps_temp2.append([xc,yc])
+
+        if len(corps_temp2)==4:
+            self.corps = corps_temp
+            self.id_f = id_temp
+                
 
 
 class Game:
@@ -125,7 +215,9 @@ class Game:
 
         self.score = 0
         self.coo_start = [self.largeur//2,0]
-        #self.plateau = [[0]*22]*10
+        
+        #Si une case = 0, elle n'est pas occupée. Sinon, elle l'est. A noter qu'on parle ici des blocs posés, pas des pièces qui
+        #descendent
         self.plateau = [
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -138,21 +230,63 @@ class Game:
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
-        #Si une case = 0, elle n'est pas occupée. Sinon, elle l'est. A noter qu'on parle ici des blocs posés, pas des pièces qui
-        #descendent
+        
+
+        #Petite touche décorative, le "Game Over" se dessine dans le plateau en fin de partie. Voici les coo de chacune des lettres
+        self.game_over = [ 
+            [(1,2),(2,2),(3,2),(1,3),(1,4),(2,4),(3,4),(3,3)],                                       #G
+            [(1,7),(1,8),(1,9),(2,7),(3,7),(3,8),(3,9)],                                             #A
+            [(1,12),(1,13),(1,14),(2,12.5),((2+2/3),12.5),(2,13),(3,12),(3,13),(3,14),(2,8.5)],      #M
+            [(1,17),(1,18),(1,19),(2,17),(2,18),(2,19.5),(3,17),(3,19.5)],                           #E
+            [(6,2),(6,3),(6,4),(7,2),(7,4),(8,2),(8,3),(8,4)],                                       #O
+            [(6,7),(6,8),(7,9),(8,7),(8,8)],                                                         #V
+            [(6,12),(6,13),(6,14),(7,12),(7,13),(7,14.5),(8,12),(8,14.5)],                           #E
+            [(6,17),(7,17),(8,17),(6,18),(6,19),(7,18),(8,19)]]                                      #R
 
 
-    def remplir_plateau(self,block):
+    def remplir_plateau(self,block,couleur):
+        '''
+        Lorsqu'un bloc est arrêté dans sa descente, il rejoint le "tas", soit les blocs faisant partie du plateau. Alors, dans
+        self.plateau, on remplace les 0 dans les cases correspondant aux coordonnées de chaque cell du bloc par la couleur du bloc,
+        de sorte à garder cette couleur en réseve lors des décalages de lignes entraînés par la méthode décaler.
+        '''
         for cell in block:
             xc,yc = cell
-            self.plateau[xc//self.step][yc//self.step] = 1
+            self.plateau[xc//self.step][yc//self.step] = couleur
+        self.score += 10
 
 
-    def décaler():
+    def decaler(self,block):
         '''
-        Lorsqu'une ligne de self.plateau est pleine, cette fonction vide celle-ci et décalle toute les lignes situées au-dessus
-        d'un cran en y (= +step)
-
-        /!\ à créer prochainement
+        Lorsque x lignes de self.plateau sont pleines, cette fonction vide celles-ci et décalle toute les lignes situées au-dessus
+        de x cran en y
         '''
-        pass
+        ver = False
+        l = []                  #Lignes déjà vérifiées.
+        nb_ligne = 0
+        for cell in block:
+            xc,yc = cell
+            verif = 0
+            if yc//self.step not in l:
+                for i in range(self.largeur//self.step):
+                    if self.plateau[i][yc//self.step] != 0:
+                        verif += 1
+                if verif == 10:
+                    nb_ligne += 1
+                    l.append(yc//self.step)
+                    ver = True
+
+        if len(l)>0:
+            self.score += 100*len(l)
+            X = max(l)
+            while X >= 0:
+                if X-nb_ligne>=0:
+                    for i in range(10):
+                        self.plateau[i][X] = self.plateau[i][X-nb_ligne]
+                else:
+                    for i in range(10):
+                        self.plateau[i][X] = 0
+                    
+                X = X-1
+
+        return ver
