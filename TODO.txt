@@ -1,8 +1,9 @@
-On a classé les buts à atteindre par ordre de priorité (du plus urgent au moins urgent)
+Le jeu étant, sur l'aspect technique et graphique, terminé, voici nos idées d'ajouts pour embellir le tout.
 A faire :
 
- - Disparition d'une ligne quand elle est pleine
- - Rotation d'un bloc
- - Fin de jeu quand une colonne est pleine
- - Ajout d'un système de score
- - Ajout de musiques ?
+ - Sound Design
+ - Musique
+ - Passage des procédures de l'affichage graphique du Game Over dans Game()
+ - Ajout d'une base de donnée pour sauvegarder les scores, et les lier à un pseudo et mot de passe (système
+   qu'il faudra donc ajouter)
+ - Système de difficulté (variation de la vitesse de jeu / du frame rate)
