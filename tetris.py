@@ -29,13 +29,13 @@ def mouvements(event):
 
 def accelerer(event):
     if event.char == "s":
-        if jeu.frame_rate >= 400:
+        if jeu.frame_rate >= 200:
             jeu.frame_rate = jeu.frame_rate // 2
 
 def ralentir(event):
     if event.char == "s":
-        if jeu.frame_rate <= 400:
-            jeu.frame_rate = 800
+        if jeu.frame_rate <= 200:
+            jeu.frame_rate = 400
 
 
 def animer():
@@ -91,7 +91,7 @@ def animer():
 root = Tk()
 root.title("Tetris")
 #==================================
-jeu = Game(200,440,20,800)
+jeu = Game(200,440,20,400)
 block = Block(jeu)
 #==================================
 root.bind("<KeyRelease>", ralentir)
