@@ -13,7 +13,7 @@ controls = {
 def mouvements(event):
     if event.char in controls:
         if event.char == "s":
-            accelerer(event)
+            jeu.accelerer()
         else:
             if event.char in ['q','d']:
                 block.mouvement(controls[event.char])
@@ -25,18 +25,9 @@ def mouvements(event):
             for cell in block.corps:
                 xc,yc = cell
                 w.create_rectangle(xc,yc,xc+jeu.step,yc+jeu.step,fill=f"{block.couleur}", outline="")
-       
 
-def accelerer(event):
-    if event.char == "s":
-        if jeu.frame_rate >= 200:
-            jeu.frame_rate = jeu.frame_rate // 2
-
-def ralentir(event):
-    if event.char == "s":
-        if jeu.frame_rate <= 200:
-            jeu.frame_rate = 400
-
+def ralentissement(event):
+    jeu.ralentir()
 
 def animer():
     ver = 0
@@ -44,6 +35,7 @@ def animer():
         if jeu.plateau[i][0] != 0:
             ver+=1
 
+    #la partie suivante est consacrée au game over. Elle n'a aucun but fonctionnel, seulement graphique.
     if ver!=0:
         w.delete(ALL)
         for i in range(len(jeu.game_over)):
@@ -61,7 +53,8 @@ def animer():
                     w.create_rectangle(x*jeu.step,y*jeu.step,x*jeu.step+jeu.step,y*jeu.step+jeu.step,fill="red",outline="")
 
         v.set(f"Your score was : {jeu.score}")
-    
+    #######################################################################################################################################################################################
+
     else:
         ver2 = block.descendre()
         if ver2:
@@ -94,7 +87,7 @@ root.title("Tetris")
 jeu = Game(200,440,20,400)
 block = Block(jeu)
 #==================================
-root.bind("<KeyRelease>", ralentir)
+root.bind("<KeyRelease>", ralentissement)
 root.bind("<Key>", mouvements)
 w = Canvas(root, width=jeu.largeur, height=jeu.hauteur)
 w.config(bg="gray2")

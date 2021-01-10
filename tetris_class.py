@@ -4,9 +4,9 @@ class Shapes:
     def __init__(self): #Un déplacement des formes dans un fichier externe est à terme envisagé (.json par exemple, ou équivalent)
         self.formes = (
             [[(0, 0), (1, 0), (0, 1), (1, 1)],     # Carre
-            [(1, 0), (1, 1), (0, 0), (0, 1)],	
-            [(1, 1), (0, 1), (1, 0), (0, 0)],	
-            [(0, 1), (0, 0), (1, 1), (1, 0)]],	
+            [(1, 0), (1, 1), (0, 0), (0, 1)],
+            [(1, 1), (0, 1), (1, 0), (0, 0)],
+            [(0, 1), (0, 0), (1, 1), (1, 0)]],
 
             [[(0, 0), (0, 1), (0, 2), (0, 3)],     # Ligne
             [(3, 0), (2, 0), (1, 0), (0, 0)],
@@ -90,7 +90,7 @@ class Block:
             [(self.apparence[self.id_f][3][0]*self.game.step+self.cd[0]),(self.apparence[self.id_f][3][1]*self.game.step+self.cd[1])]]
         self.couleur = couleur
         self.corps_precedent = []
-        
+
 
     def descendre(self):
         '''
@@ -110,11 +110,11 @@ class Block:
         for i in range(n):
             x,y = self.corps[i]
             y += self.game.step
-  
+
             if y<=self.game.hauteur-self.game.step:
                 if self.game.plateau[x//self.game.step][y//self.game.step] == 0:
                     corps_temp.append([x,y])
-            
+
         if len(corps_temp)==4:
             self.corps = corps_temp
             x,y = self.cd
@@ -155,7 +155,7 @@ class Block:
             x += direction*self.game.step
             self.cd = [x,y]
 
-        
+
     def rotation(self,angle):
         '''
         Fonction lié à un event dans le programme principal. Lorsque la touche o ou p est pressée, la fonction se lance
@@ -203,7 +203,7 @@ class Block:
         if len(corps_temp2)==4:
             self.corps = corps_temp
             self.id_f = id_temp
-                
+
 
 
 class Game:
@@ -215,7 +215,7 @@ class Game:
 
         self.score = 0
         self.coo_start = [self.largeur//2,0]
-        
+
         #Si une case = 0, elle n'est pas occupée. Sinon, elle l'est. A noter qu'on parle ici des blocs posés, pas des pièces qui
         #descendent
         self.plateau = [
@@ -230,10 +230,10 @@ class Game:
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
-        
+
 
         #Petite touche décorative, le "Game Over" se dessine dans le plateau en fin de partie. Voici les coo de chacune des lettres
-        self.game_over = [ 
+        self.game_over = [
             [(1,2),(2,2),(3,2),(1,3),(1,4),(2,4),(3,4),(3,3)],                                       #G
             [(1,7),(1,8),(1,9),(2,7),(3,7),(3,8),(3,9)],                                             #A
             [(1,12),(1,13),(1,14),(2,12.5),((2+2/3),12.5),(2,13),(3,12),(3,13),(3,14),(2,8.5)],      #M
@@ -243,6 +243,14 @@ class Game:
             [(6,12),(6,13),(6,14),(7,12),(7,13),(7,14.5),(8,12),(8,14.5)],                           #E
             [(6,17),(7,17),(8,17),(6,18),(6,19),(7,18),(8,19)]]                                      #R
 
+
+    def accelerer(self):
+        if self.frame_rate >= 200:
+            self.frame_rate = self.frame_rate // 2
+
+    def ralentir(self):
+        if self.frame_rate <= 200:
+            self.frame_rate = 400
 
     def remplir_plateau(self,block,couleur):
         '''
@@ -286,7 +294,7 @@ class Game:
                 else:
                     for i in range(10):
                         self.plateau[i][X] = 0
-                    
+
                 X = X-1
 
         return ver
