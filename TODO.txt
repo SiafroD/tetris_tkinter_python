@@ -1,4 +1,4 @@
-Le jeu étant, sur l'aspect technique et graphique, terminé, voici nos idées d'ajouts pour embellir le tout.
+Le jeu étant, sur l'aspect technique et graphique, terminé, voici nos idées d'ajouts pour compléter le tout.
 A faire :
 
  - Sound Design
