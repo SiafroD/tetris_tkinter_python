@@ -12,11 +12,11 @@ Le joueur peut faire pivoter la pièce de 90° dans le sens des aiguilles d'une 
 Le joueur peut accélérer la descente de la pièce (S).
 
 Lorsqu'une pièce est bloquée dans sa progression vers le bas (bas du tableau ou autre pièce déjà tombée
-touché(e)), elle devient solide et n'est alors plus contrôlable par le joueur : elle devient une partie
+touchée), elle devient solide et n'est alors plus contrôlable par le joueur : elle devient une partie
 de l'environnement de jeu, fusionnant avec les pièces déjà tombées. Le score est alors incrémenté de 10.
 
 Lorsqu'une ligne du tableau possède toutes ses cases occupées par des blocs des pièces tombées, la ligne se
-vide automatiquement et le score est incrémenté de 100. Tous les blocs déjà poséssitués au dessus viendront 
+vide automatiquement et le score est incrémenté de 100. Tous les blocs déjà positionnés au dessus viendront 
 descendre d'une ligne.
 
 Si une colonne possède toutes ses cases occupées par des blocs de pièces tombées et qu'une pièce vient
