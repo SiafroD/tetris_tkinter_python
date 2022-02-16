@@ -1,7 +1,7 @@
 from random import randint
 
 class Shapes:
-    def __init__(self): #Un déplacement des formes dans un fichier externe est à terme envisagé (.json par exemple, ou équivalent)
+    def __init__(self):
         self.formes = (
             [[(0, 0), (1, 0), (0, 1), (1, 1)],     # Carre
             [(1, 0), (1, 1), (0, 0), (0, 1)],
@@ -72,7 +72,7 @@ class Block:
 
     def reset_block(self):
         '''
-        Quand un bloc finit bloqué dans sa descente, il devient partie du plateau/devient solide (/!\ à initialiser). Un nouveau
+        Quand un bloc se bloque dans sa descente, il devient partie du plateau/devient solide. Un nouveau
         bloc se génère donc, avec cette méthode reset_block.
         '''
         gen_rand = randint(0,len(self.apparences.formes)-1)
@@ -98,7 +98,7 @@ class Block:
         contenu dans l'attribut game, faisant ainsi continuellement descendre la pièce sur le terrain de jeu.
 
         On utilise la liste initialement vide "corps_temp" dans laquelle on place les coordonnées de chaque case de notre bloc
-        une fois le déplacement accompli. Si une case n'est pas valide (en dehors du plateau), elle n'entre pas dans corps_temp.
+        une fois le déplacement réalisé. Si une case n'est pas valide (en dehors du plateau), elle n'entre pas dans corps_temp.
         On ne modifie self.corps que si corps_temp a une longueur de 4, soit si toutes les cases, une fois le déplacement
         accompli, ont une position valide.
         '''
@@ -127,13 +127,13 @@ class Block:
 
     def mouvement(self,direction):
         '''
-        Fonction lié à un event dans le programme principal. Lorsque la touche q ou d est pressé, la fonction
-        se lance avec la valeur associé à la touche
-        Si direction=1, l'ensemble des pièces formant le bloc se décallent de 1*step en x.
-        Si direction=-1, l'ensemble des pièces formant le bloc se décallent de -1*step en x.
+        Fonction liée à un event dans le programme principal. Lorsque la touche q ou d est pressée, la fonction
+        se lance avec la valeur associée à la touche
+        Si direction=1, l'ensemble des pièces formant le bloc se décalent de 1*step en x.
+        Si direction=-1, l'ensemble des pièces formant le bloc se décalent de -1*step en x.
 
         On utilise la liste initialement vide "corps_temp" dans laquelle on place les coordonnées de chaque case de notre bloc
-        une fois le déplacement accompli. Si une case n'est pas valide (en dehors du plateau), elle n'entre pas dans corps_temp.
+        une fois le déplacement réalisé. Si une case n'est pas valide (en dehors du plateau), elle n'entre pas dans corps_temp.
         On ne modifie self.corps que si corps_temp a une longueur de 4, soit si toutes les cases, une fois le déplacement
         accompli, ont une position valide.
         '''
@@ -158,12 +158,12 @@ class Block:
 
     def rotation(self,angle):
         '''
-        Fonction lié à un event dans le programme principal. Lorsque la touche o ou p est pressée, la fonction se lance
+        Fonction liée à un event dans le programme principal. Lorsque la touche o ou p est pressée, la fonction se lance
         avec la valeur associée à la touche (1 pour P, -1 pour O)
 
         Si angle=1, l'ensemble des pièces subira une rotation de 90° dans le sens des aiguilles d'une montre. Cela se traduira
-        par un changement d'apparence de la pièce, parmi les apparences contenues dans Block().apparence, en prenant la forme
-        "d'indice" suivant.
+        par un changement d'apparence de la pièce, piochée dans les apparences contenues dans Block().apparence, en prenant la 
+        forme "d'indice" suivant.
         Si angle=-1, même concept, mais ce sera une rotation de 90° dans le sens inverse des aiguilles d'une montre, et la
         prise de la forme "d'indice" précédent
 
@@ -266,7 +266,7 @@ class Game:
 
     def decaler(self,block):
         '''
-        Lorsque x lignes de self.plateau sont pleines, cette fonction vide celles-ci et décalle toute les lignes situées au-dessus
+        Lorsque x lignes de self.plateau sont pleines, cette fonction vide celles-ci et décale toutes les lignes situées au-dessus
         de x cran en y
         '''
         ver = False
